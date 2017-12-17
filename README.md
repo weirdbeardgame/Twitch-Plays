@@ -45,5 +45,5 @@ areas of input in their own way that might not allow this Chat Bot to register
 **A:** this program automatically generates a commands.txt file that can be used in conjunction with OBS to show what's currently on queue. 
 
 
-**Built with: **
+**Built with:**
  Nlohmann json library: https://github.com/nlohmann/json
