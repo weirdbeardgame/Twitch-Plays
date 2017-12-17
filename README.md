@@ -21,6 +21,7 @@ without a pound sign the oauth token and the bot's name into the setting's file 
 not service isn't finished yet so don't bother. commands.txt can be loaded by obs to show the command queue on stream. 
 
 **FAQ:**
+
 **Q:** Why won’t my game play??
 **A:** When working with software input in operating systems there's several different types of keyboard input ranging from 
 virtual key presses sent through the windows messaging layer to scan codes and several other layes of input, games read from different 
