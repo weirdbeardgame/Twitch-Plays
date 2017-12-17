@@ -37,3 +37,5 @@ A: Pending further testing
 Q: I want a queue log to appear onscreen?
 
 A: this program automatically generates a commands.txt file that can be used in conjunction with OBS to show what's currently on queue. 
+
+Using Nlohmann json library: https://github.com/nlohmann/json
