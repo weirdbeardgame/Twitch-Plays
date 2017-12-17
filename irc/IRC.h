@@ -5,6 +5,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string>
+#include <vector>
 #include <iostream>
 #include "Keys.h"
 
@@ -24,10 +25,11 @@ private:
 	
 	//Sent data.
 	std::string sendBuf;
+	std::vector<char> recvbuf;
 
 	char pong[24] = "PONG : tmi.twitch.tv\r\n";
 	char *controls = "Controls are: Up Down Left Right Cross, Circle, Square, Triagle, Start, Select\r\n";
-	char recvbuf[512]; 
+	
 
 	//Size of Buffers.
 	int len = 0;
@@ -36,13 +38,12 @@ private:
 
 	int iResult = 0; 
 	int total = 0; 
-	int recvbuflen = 512; 
 	int sendbuflen = 0; 
 		
 public:
 	IRC();
 	Keys key;
-	int receiveAll(int s, char * recvbuf);
+	int receiveAll(int s, std::vector <char> recvbuf);
 	void sendAll(int s, std::string buff, int *len);
 	int connection(std::string &oauth, std::string &userName, std::string &botName, std::string &service);
 

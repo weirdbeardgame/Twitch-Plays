@@ -32,7 +32,6 @@ void choices::execute_choice(std::string &oauth, std::string &userName, std::str
 
 	case 'S':
 		set.editSettings(oauth, userName, botName,  service);
-		std::cin.ignore();
 		break;
 
 	case 'Q':

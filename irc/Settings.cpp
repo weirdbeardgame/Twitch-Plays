@@ -44,8 +44,6 @@ void Settings::readSettings(std::string &oauth, std::string &userName, std::stri
 void Settings::editSettings(std::string &oauth, std::string &userName, std::string &botName, std::string &service)
 { 
 	char options;
-	std::string o, User, bot, serv;
-
 
 	std::cout << "current setting's are: " 		
 		<< "Service: " << service << std::endl
@@ -54,37 +52,42 @@ void Settings::editSettings(std::string &oauth, std::string &userName, std::stri
 		<< "Bot Name: " << botName << std::endl;
 
 	std::cout << "Options are: " << std::endl;
-	std::cout << "C: Edit Channel name" << std::endl
+	std::cout << "C: Edit Channel name" << std::endl	
+		      << "B: Edit the name of the Bot" << std::endl 
 		      << "S: Edit service - Not Yet implemented." << std::endl
 		      << "O: Edit Oauth Token" << std::endl;
 	std::cout << ">";
 	std::cin >> options;
 	options = toupper(options);
 	
-	std::cin.clear();
-	std::cin.sync();
+	std::cin.ignore();
 	
 	switch (options)
 	{
 	case 'C':
 		std::cout << "Channel is: ";
-		std::getline(std::cin , User);
-		setting["channelName"] = User;
-		writeSettings(setting);
+		std::getline(std::cin , userName);
+		setting["channelName"] = userName;
 		break;
+
+	case 'B':
+		std::cout << "Bot's name is: ";
+		std::getline(std::cin, botName);
+		setting["botName"] = botName;
 
 	case 'S':
 		std::cout << "Not yet implemented." << std::endl;
+		setting["Service"] = "Twitch";
 		break;
 
 	case 'O':
 		std::cout << "Oauth Token: ";
-		std::getline(std::cin, o);	
-		setting["Password"] = o;
-		writeSettings(setting);
+		std::getline(std::cin, oauth);	
+		setting["Password"] = oauth;
 		break;
 	}
 	 
+	writeSettings(setting);
 }
 
 void Settings::writeSettings(jsonf stream)

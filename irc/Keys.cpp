@@ -1,19 +1,18 @@
 #include "Keys.h"
 
-
-
 Keys::Keys()
 {
 }
 
 void Keys::pushToQueue(std::string s)
 {
-	fout.open(filePath, std::ios_base::app|| std::ios::out);
+	fout.open(filePath, std::ios::app | std::ios::out);
 	commands.push_back(s);
 	pullFromQueue();
 }
 
-void Keys::pullFromQueue() {
+void Keys::pullFromQueue() 
+{
 
 	for (int i = 0; i < commands.size(); i++)
 	{
@@ -21,7 +20,6 @@ void Keys::pullFromQueue() {
 	}
 
 	fout.close();
-	std::cerr << commands.front() << std::endl;
 	translateCommand(commands.front());
 }
 

@@ -4,18 +4,19 @@ IRC::IRC()
 {
 }
 
-int IRC::receiveAll(int s, char * recvbuf)
+int IRC::receiveAll(int s, std::vector <char> recvbuf)
 {
-	int left = recvbuflen;
+
+	int left = 512;
 	int n = -1;
 	int len = 0;
 
-	while (total < recvbuflen)
+	while (total < 512)
 	{
-		n = recv(connectSocket, recvbuf, left, 0);
+		n = recv(connectSocket, &recvbuf[0], left, 0);
 		if (n <= 0)
 		{
-			printf("recv failed with error: %d\n", WSAGetLastError());
+			std::cout << "recv failed with error: " <<  WSAGetLastError() << std::endl;
 			break;
 		}
 
@@ -33,7 +34,7 @@ int IRC::receiveAll(int s, char * recvbuf)
 				std::cout << recvbuf[x];
 			}
 
-			if ((strstr(recvbuf, "PING")) != NULL)
+			if ((strstr(recvbuf.data(), "PING")) != NULL)
 			{
 				len = strlen(pong);
 				sendAll(connectSocket, pong, &len);
@@ -44,57 +45,57 @@ int IRC::receiveAll(int s, char * recvbuf)
 			/**********************************************
 			* This will be replaced with a std vector soon.
 			***********************************************/
-			if ((strstr(recvbuf, "Up")) != NULL || (strstr(recvbuf, "up")) != NULL)				
+			if ((strstr(recvbuf.data(), "Up")) != NULL || (strstr(recvbuf.data(), "up")) != NULL)				
 			{
 				key.pushToQueue("Up");
 			}
 
-			else if ((strstr(recvbuf, "Down")) != NULL || (strstr(recvbuf, "down")) != NULL)
+			else if ((strstr(recvbuf.data(), "Down")) != NULL || (strstr(recvbuf.data(), "down")) != NULL)
 			{
 				key.pushToQueue("Down");
 			}
 
-			if ((strstr(recvbuf, "Left")) != NULL || (strstr(recvbuf, "left")) != NULL)
+			if ((strstr(recvbuf.data(), "Left")) != NULL || (strstr(recvbuf.data(), "left")) != NULL)
 			{
 				key.pushToQueue("Left");
 			}
 
-			else if ((strstr(recvbuf, "Right")) != NULL || (strstr(recvbuf, "right")) != NULL)
+			else if ((strstr(recvbuf.data(), "Right")) != NULL || (strstr(recvbuf.data(), "right")) != NULL)
 			{
 				key.pushToQueue("Right");
 			}
 
-			if ((strstr(recvbuf, "Cross")) != NULL || (strstr(recvbuf, "cross")) != NULL)
+			if ((strstr(recvbuf.data(), "Cross")) != NULL || (strstr(recvbuf.data(), "cross")) != NULL)
 			{
 				key.pushToQueue("Cross");
 			}
 
-			else if ((strstr(recvbuf, "Circle")) != NULL || (strstr(recvbuf, "circle")) != NULL)
+			else if ((strstr(recvbuf.data(), "Circle")) != NULL || (strstr(recvbuf.data(), "circle")) != NULL)
 			{
 				key.pushToQueue("Circle");
 			}
 
-			if ((strstr(recvbuf, "Square")) != NULL || (strstr(recvbuf, "square")) != NULL)
+			if ((strstr(recvbuf.data(), "Square")) != NULL || (strstr(recvbuf.data(), "square")) != NULL)
 			{
 				key.pushToQueue("Square");
 			}
 
-			else if ((strstr(recvbuf, "Triangle")) != NULL || (strstr(recvbuf, "triangle")) != NULL)
+			else if ((strstr(recvbuf.data(), "Triangle")) != NULL || (strstr(recvbuf.data(), "triangle")) != NULL)
 			{
 				key.pushToQueue("Triangle");
 			}
 
-			if ((strstr(recvbuf, "Square")) != NULL || (strstr(recvbuf, "square")) != NULL)
+			if ((strstr(recvbuf.data(), "Square")) != NULL || (strstr(recvbuf.data(), "square")) != NULL)
 			{
 				key.pushToQueue("Square");
 			}
 
-		    else if ((strstr(recvbuf, "Start")) != NULL || (strstr(recvbuf, "start")) != NULL)
+		    else if ((strstr(recvbuf.data(), "Start")) != NULL || (strstr(recvbuf.data(), "start")) != NULL)
 			{
 				key.pushToQueue("Start");
 			}
 
-			if ((strstr(recvbuf, "Select")) != NULL || (strstr(recvbuf, "select")) != NULL)
+			if ((strstr(recvbuf.data(), "Select")) != NULL || (strstr(recvbuf.data(), "select")) != NULL)
 			{
 				key.pushToQueue("Select");
 			}	
@@ -103,7 +104,7 @@ int IRC::receiveAll(int s, char * recvbuf)
 
 	//Reset the Loop above.
 
-	if (total == recvbuflen)
+	if (total == 512)
 	{
 		total = 0;
 	}
@@ -121,7 +122,7 @@ void IRC::sendAll(int s, std::string buf, int *len)
 
 		if (iResult == -1)
 		{
-			printf("recv failed with error: %d\n", WSAGetLastError());
+			std::cout << "Send failed with error: " <<  WSAGetLastError() << std::endl;
 			break;
 		}
 
@@ -134,8 +135,10 @@ void IRC::sendAll(int s, std::string buf, int *len)
 
 int IRC::connection(std::string &oauth, std::string &userName, std::string &botName, std::string &service)
 {
-	struct addrinfo server, *result, *ptr;
-	struct hostent *ipaddress;
+	struct addrinfo server, *result, *ptr; /****************************************************
+										   * Server is used for winsock settings
+										   * result is obvious, ptr is the resolved ip address
+										   ****************************************************/
 
 	std::cout << "WELCOME TO: " << service << std::endl;
 
@@ -147,48 +150,49 @@ int IRC::connection(std::string &oauth, std::string &userName, std::string &botN
 		printf("WSAStartup failed with error: %d\n", iResult);
 	}
 
+	//To clear the struct of junk data.
 	memset(&server, 0, sizeof(server));
 	 
-	//The address of hostname resolved.
+	//The basic initalizing setting for winsock.
 	server.ai_family = AF_UNSPEC;
 	server.ai_socktype = SOCK_STREAM;
 	server.ai_protocol = IPPROTO_TCP;
 	
-	iResult = getaddrinfo("irc.twitch.tv", DEFAULT_PORT, &server, &result);
+	iResult = getaddrinfo("irc.twitch.tv", DEFAULT_PORT, &server, &result); // - The HostName to be resolved.
 
-	// Attempt to connect to an address until one succeeds
-	for (ptr = result; ptr != NULL; ptr = ptr->ai_next) {
-
+	// connect to resolved ip address
+	for (ptr = result; ptr != NULL; ptr = ptr->ai_next) 
+	{
 		// Create a SOCKET for connecting to server
 		connectSocket = socket(ptr->ai_family, ptr->ai_socktype, ptr->ai_protocol);
 		
 		if (connectSocket == INVALID_SOCKET) 
 		{
-			printf("socket failed with error: %ld\n", WSAGetLastError());
+			std::cerr << "socket failed with error: " << WSAGetLastError() << std::endl;
 			WSACleanup();
 			exit(-1);
 		}
 
-		// Connect to server.
+		// Connect to ip address
 		iResult = connect(connectSocket, ptr->ai_addr, (int)ptr->ai_addrlen);
+	
 		if (iResult == SOCKET_ERROR) 
 		{
 			closesocket(connectSocket);
 			connectSocket = INVALID_SOCKET;
-			continue;
+			std::cerr << "Invalid address" << std::endl;
+			exit(-1);
 		}
-		
-		break;
 	}
 
 	freeaddrinfo(result);
 
 	if (connectSocket == INVALID_SOCKET) 
 	{
-		std::cout << "Unable to Connect" << "Error: " << WSAGetLastError() << std::endl;
+		std::cerr << "Unable to Connect" << "Error: " << WSAGetLastError() << std::endl;
 		system("PAUSE");
 		WSACleanup();
-		return 1;
+		exit (-1);
 	}
 
 /*****************************************
@@ -202,7 +206,7 @@ int IRC::connection(std::string &oauth, std::string &userName, std::string &botN
 			
 	if (iResult == SOCKET_ERROR) 
 	{	
-		std::cout << "send failed with error: " << WSAGetLastError() << std::endl;
+		std::cerr << "send failed with error: " << WSAGetLastError() << std::endl;
 		closesocket(connectSocket);	
 		WSACleanup();	
 	}
@@ -227,7 +231,7 @@ int IRC::connection(std::string &oauth, std::string &userName, std::string &botN
 
 	if (iResult == SOCKET_ERROR) 	
 	{	
-		printf("send failed with error: %d\n", WSAGetLastError());			
+		std::cerr << "send failed with error: " <<  WSAGetLastError() << std::endl;			
 		closesocket(connectSocket);			
 		WSACleanup();		
 	}
@@ -238,7 +242,7 @@ int IRC::connection(std::string &oauth, std::string &userName, std::string &botN
 	
 	if (iResult == SOCKET_ERROR) 		
 	{			
-		printf("send failed with error: %d\n", WSAGetLastError());			
+		std::cerr << "send failed with error: " <<  WSAGetLastError() << std::endl;			
 		closesocket(connectSocket);			
 		WSACleanup();		
 	}
@@ -249,7 +253,7 @@ int IRC::connection(std::string &oauth, std::string &userName, std::string &botN
 	
 	if (iResult == SOCKET_ERROR) 		
 	{		
-		printf("send failed with error: %d\n", WSAGetLastError());			
+	std::cerr << "send failed with error: " << WSAGetLastError() << std::endl;			
 		closesocket(connectSocket);		
 		WSACleanup();		
 	}

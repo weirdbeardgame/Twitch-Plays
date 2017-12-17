@@ -1,3 +1,6 @@
 {
-    "channelName": ""
+	"Service": "Twitch",
+	"botName": "Control_Bot",
+	"channelName": "weirdbeardgame",
+	"Password": "oauth:kigq5dzm58hpurucheo01r9q3d82fj"
 }
