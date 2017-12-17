@@ -19,7 +19,8 @@ change keyboard class to work with broken games.
 
 Useage:
 run the program once setting's .json appears open it with a compatible text editor add the name of your channel 
-without a pund sign the oauth token and the bot's name into the setting's file and save it. not service isn't finished yet so don't bother. 
+without a pound sign the oauth token and the bot's name into the setting's file and save it. 
+not service isn't finished yet so don't bother. commands.txt can be loaded by obs to show the command queue on stream. 
 
 FAQ:
 
