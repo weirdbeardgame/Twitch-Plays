@@ -16,13 +16,22 @@ change keyboard class to work with broken games.
 add a plugin system for programmers to add features specific to a game they're streaming.
 
 **Usage:**
-run the program once setting’s. json appears open it with a compatible text editor add the name of your channel 
-without a pound sign the oauth token and the bot's name into the setting's file and save it. 
-not service isn't finished yet so don't bother. commands.txt can be loaded by obs to show the command queue on stream. 
+First and formost this Bot is in beta as such extra setup steps will be required until later development.
+
+1. you must register it in your channel using the twitch application resgister: https://www.twitch.tv/kraken/oauth2/clients/new
+for Redirect URI simply put localhost and it should work save the name you choose for later this will be used as the bot's name.
+
+2. you MUST have and oauth token for this bot to work it can be obtained here: https://twitchapps.com/tmi/ 
+
+run the program once setting’s.json appears open it with a compatible text editor i'd reccomend notepad++ 
+add the name of your channel without a pound sign the oauth token and the bot's name into the 
+setting's file and save it. Note  the service option isn't finished yet so don't bother commands.txt can be 
+loaded by obs to show the command queue on stream. 
 
 **FAQ:**
 
-**Q:** Why won’t my game play??
+**Q:** Why won’t my game accept input??
+
 **A:** When working with software input in operating systems there's several different types of keyboard input ranging from 
 virtual key presses sent through the windows messaging layer to scan codes and several other layes of input, games read from different 
 areas of input in their own way that might not allow this Chat Bot to register 
