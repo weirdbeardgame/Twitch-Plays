@@ -25,7 +25,7 @@ private:
 	
 	//Sent data.
 	std::string sendBuf;
-	std::vector<char> recvbuf;
+	char recievebuf[512];
 
 	char pong[24] = "PONG : tmi.twitch.tv\r\n";
 	char *controls = "Controls are: Up Down Left Right Cross, Circle, Square, Triagle, Start, Select\r\n";
@@ -43,7 +43,7 @@ private:
 public:
 	IRC();
 	Keys key;
-	int receiveAll(int s, std::vector <char> recvbuf);
+	int receiveAll(int s, char * recvbuf);
 	void sendAll(int s, std::string buff, int *len);
 	int connection(std::string &oauth, std::string &userName, std::string &botName, std::string &service);
 
