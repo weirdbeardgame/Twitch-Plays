@@ -13,14 +13,13 @@ void Keys::pushToQueue(std::string s)
 
 void Keys::pullFromQueue() 
 {
-
+	translateCommand(commands.front());
 	for (int i = 0; i < commands.size(); i++)
 	{
 		fout << commands[i] << std::endl;
 	}
 
 	fout.close();
-	translateCommand(commands.front());
 }
 
 void Keys::translateCommand(std::string Command)
