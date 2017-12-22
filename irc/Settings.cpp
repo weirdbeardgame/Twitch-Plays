@@ -66,27 +66,30 @@ void Settings::editSettings(std::string &oauth, std::string &userName, std::stri
 	{
 	case 'C':
 		std::cout << "Channel is: ";
-		std::getline(std::cin , userName);
-		setting["channelName"] = userName;
+		std::getline(std::cin , userName);		
 		break;
 
 	case 'B':
 		std::cout << "Bot's name is: ";
 		std::getline(std::cin, botName);
-		setting["botName"] = botName;
+		break;
 
 	case 'S':
 		std::cout << "Not yet implemented." << std::endl;
-		setting["Service"] = "Twitch";
 		break;
 
 	case 'O':
 		std::cout << "Oauth Token: ";
 		std::getline(std::cin, oauth);	
-		setting["Password"] = oauth;
 		break;
 	}
 	 
+	setting["channelName"] = userName;
+	setting["botName"] = botName;	
+	setting["Service"] = "Twitch";	
+	setting["Password"] = oauth;
+
+
 	writeSettings(setting);
 }
 

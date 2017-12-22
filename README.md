@@ -7,7 +7,6 @@ This chat Bot works with Twitch but a Youtube Gaming feature is planned to be ad
 
 **What work's / what doesn't:**
 Game's wise I'm not entirely sure what games don't work.
-The setting’s button doesn’t make good files
 Feature's wise Youtube gaming isn't added.
 
 **TODO:**
