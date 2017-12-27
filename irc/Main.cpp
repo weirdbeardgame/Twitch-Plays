@@ -1,11 +1,10 @@
 #include <iostream>
 #include "Settings.h"
 #include "choices.h"
-using namespace std;
 
 int main()
 {
-    std:string userName;	
+    std::string userName;	
 	std::string service;
 	std::string oauth;
 	std::string botName;

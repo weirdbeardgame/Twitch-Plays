@@ -13,6 +13,7 @@ private:
 	std::vector<std::string>fileQueue;
 	int keyResult = 0;
 	int buffSize = 0; 
+	INPUT ip;
 	std::string filePath = "Commands.txt";
 	std::ofstream fout;
 

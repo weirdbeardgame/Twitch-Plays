@@ -28,7 +28,7 @@ private:
 	char recievebuf[512];
 
 	char pong[24] = "PONG : tmi.twitch.tv\r\n";
-	char *controls = "Controls are: Up Down Left Right Cross, Circle, Square, Triagle, Start, Select\r\n";
+	std::string controls = "Up Down Left Right Cross, Circle, Square, Triagle, Start, Select \r\n";
 	
 
 	//Size of Buffers.
