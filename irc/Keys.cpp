@@ -31,9 +31,9 @@ void Keys::translateCommand(std::string Command)
 	if (Command == "Up" || Command == "up")
 	{
 		ip.ki.dwFlags = KEYEVENTF_SCANCODE;
-		ip.ki.wScan = 0x48;
+		ip.ki.wScan = 22472;
 		SendInput(1, &ip, sizeof(INPUT));
-		Sleep(500);
+		Sleep(300);
 		ip.ki.dwFlags = KEYEVENTF_SCANCODE | KEYEVENTF_KEYUP;
 		SendInput(1, &ip, sizeof(INPUT));
 		Command = " ";
@@ -43,9 +43,9 @@ void Keys::translateCommand(std::string Command)
 	else if (Command == "Left" || Command == "left")
 	{	
 		ip.ki.dwFlags = KEYEVENTF_SCANCODE;
-		ip.ki.wScan = 0x4B;
+		ip.ki.wScan = 22475;
 		SendInput(1, &ip, sizeof(INPUT));
-		Sleep(500);
+		Sleep(300);
 		ip.ki.dwFlags = KEYEVENTF_SCANCODE | KEYEVENTF_KEYUP;
 		SendInput(1, &ip, sizeof(INPUT));
 		Command = " ";
@@ -55,9 +55,9 @@ void Keys::translateCommand(std::string Command)
 	if (Command == "Right" || Command == "right")
 	{	
 		ip.ki.dwFlags = KEYEVENTF_SCANCODE;
-		ip.ki.wScan = 0x4D;
+		ip.ki.wScan = 22477;
 		SendInput(1, &ip, sizeof(INPUT));
-		Sleep(500);
+		Sleep(300);
 		ip.ki.dwFlags = KEYEVENTF_SCANCODE | KEYEVENTF_KEYUP;
 		SendInput(1, &ip, sizeof(INPUT));
 		Command = " ";
@@ -67,9 +67,9 @@ void Keys::translateCommand(std::string Command)
 	else if (Command == "Down" || Command == "down")
 	{
 		ip.ki.dwFlags = KEYEVENTF_SCANCODE;
-		ip.ki.wScan = 0x50;
+		ip.ki.wScan = 22480;
 		SendInput(1, &ip, sizeof(INPUT));
-		Sleep(500);
+		Sleep(300);
 		ip.ki.dwFlags = KEYEVENTF_SCANCODE | KEYEVENTF_KEYUP;
 		SendInput(1, &ip, sizeof(INPUT));
 		Command = " ";
@@ -81,7 +81,7 @@ void Keys::translateCommand(std::string Command)
 		ip.ki.dwFlags = KEYEVENTF_SCANCODE;
 		ip.ki.wScan = 0x2C;
 		SendInput(1, &ip, sizeof(INPUT));
-		Sleep(500);
+		Sleep(100);
 		ip.ki.dwFlags = KEYEVENTF_SCANCODE | KEYEVENTF_KEYUP;
 		SendInput(1, &ip, sizeof(INPUT));
 		Command = " ";
@@ -93,7 +93,7 @@ void Keys::translateCommand(std::string Command)
 		ip.ki.dwFlags = KEYEVENTF_SCANCODE;
 		ip.ki.wScan = 0x2D;
 		SendInput(1, &ip, sizeof(INPUT));
-		Sleep(500);
+		Sleep(100);
 		ip.ki.dwFlags = KEYEVENTF_SCANCODE | KEYEVENTF_KEYUP;
 		SendInput(1, &ip, sizeof(INPUT));
 		Command = " ";
@@ -105,7 +105,7 @@ void Keys::translateCommand(std::string Command)
 		ip.ki.dwFlags = KEYEVENTF_SCANCODE;
 		ip.ki.wScan = 0x1E;
 		SendInput(1, &ip, sizeof(INPUT));
-		Sleep(500);
+		Sleep(100);
 		ip.ki.dwFlags = KEYEVENTF_SCANCODE | KEYEVENTF_KEYUP;
 		SendInput(1, &ip, sizeof(INPUT));
 		Command = " ";
@@ -117,7 +117,7 @@ void Keys::translateCommand(std::string Command)
 		ip.ki.dwFlags = KEYEVENTF_SCANCODE;
 		ip.ki.wScan = 0x1F;
 		SendInput(1, &ip, sizeof(INPUT));
-		Sleep(500);
+		Sleep(100);
 		ip.ki.dwFlags = KEYEVENTF_SCANCODE | KEYEVENTF_KEYUP;
 		SendInput(1, &ip, sizeof(INPUT));
 		Command = " ";
@@ -129,7 +129,7 @@ void Keys::translateCommand(std::string Command)
 		ip.ki.dwFlags = KEYEVENTF_SCANCODE;
 		ip.ki.wScan = 0x2E;
 		SendInput(1, &ip, sizeof(INPUT));
-		Sleep(500);
+		Sleep(100);
 		ip.ki.dwFlags = KEYEVENTF_SCANCODE | KEYEVENTF_KEYUP;
 		SendInput(1, &ip, sizeof(INPUT));
 		Command = " ";
@@ -141,7 +141,7 @@ void Keys::translateCommand(std::string Command)
 		ip.ki.dwFlags = KEYEVENTF_SCANCODE;
 		ip.ki.wScan = 0x2F;
 		SendInput(1, &ip, sizeof(INPUT));
-		Sleep(500);
+		Sleep(100);
 		ip.ki.dwFlags = KEYEVENTF_SCANCODE | KEYEVENTF_KEYUP;
 		SendInput(1, &ip, sizeof(INPUT));
 		Command = " ";
