@@ -6,6 +6,8 @@
 #include <stdio.h>
 #include <string>
 #include <vector>
+#include <iterator>
+#include <algorithm>
 #include <iostream>
 #include "Keys.h"
 
@@ -16,13 +18,18 @@
 
 #define DEFAULT_PORT "6667"
 
+enum class state{CONNECTING, CONNECTED};
+
+
 class IRC
 {
 private:
 	
+
 	WSADATA wsaData;
 	SOCKET connectSocket = INVALID_SOCKET;
-	
+	state st;
+
 	//Sent data.
 	std::string sendBuf;
 	char recievebuf[512];
@@ -36,17 +43,17 @@ private:
 	int len2 = 0;
 	int len3 = 0;
 
-	int iResult = 0; 
+	int status = 0; 
 	int total = 0; 
 	int sendbuflen = 0; 
 		
 public:
 	IRC();
 	Keys key;
-	int receiveAll(int s, char * recvbuf);
+	int receiveAll(int s);
 	void sendAll(int s, std::string buff, int *len);
 	int connection(std::string &oauth, std::string &userName, std::string &botName, std::string &service);
-
+	state setState(state s) { return st = s; }
 	~IRC();
 };
 

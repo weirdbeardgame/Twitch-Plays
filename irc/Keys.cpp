@@ -26,6 +26,13 @@ void Keys::pullFromQueue()
 	translateCommand(commands.front());
 }
 
+void Keys::sendKey(keyboard k)
+{
+	ip.ki.dwFlags = KEYEVENTF_SCANCODE;
+	ip.ki.wScan = keylist.Arrow_Up;
+
+}
+
 void Keys::translateCommand(std::string Command)
 {
 	if (Command == "Up" || Command == "up")
@@ -33,7 +40,7 @@ void Keys::translateCommand(std::string Command)
 		ip.ki.dwFlags = KEYEVENTF_SCANCODE;
 		ip.ki.wScan = 22472;
 		SendInput(1, &ip, sizeof(INPUT));
-		Sleep(300);
+		Sleep(500);
 		ip.ki.dwFlags = KEYEVENTF_SCANCODE | KEYEVENTF_KEYUP;
 		SendInput(1, &ip, sizeof(INPUT));
 		Command = " ";
@@ -45,7 +52,7 @@ void Keys::translateCommand(std::string Command)
 		ip.ki.dwFlags = KEYEVENTF_SCANCODE;
 		ip.ki.wScan = 22475;
 		SendInput(1, &ip, sizeof(INPUT));
-		Sleep(300);
+		Sleep(500);
 		ip.ki.dwFlags = KEYEVENTF_SCANCODE | KEYEVENTF_KEYUP;
 		SendInput(1, &ip, sizeof(INPUT));
 		Command = " ";
@@ -57,7 +64,7 @@ void Keys::translateCommand(std::string Command)
 		ip.ki.dwFlags = KEYEVENTF_SCANCODE;
 		ip.ki.wScan = 22477;
 		SendInput(1, &ip, sizeof(INPUT));
-		Sleep(300);
+		Sleep(500);
 		ip.ki.dwFlags = KEYEVENTF_SCANCODE | KEYEVENTF_KEYUP;
 		SendInput(1, &ip, sizeof(INPUT));
 		Command = " ";
@@ -67,9 +74,9 @@ void Keys::translateCommand(std::string Command)
 	else if (Command == "Down" || Command == "down")
 	{
 		ip.ki.dwFlags = KEYEVENTF_SCANCODE;
-		ip.ki.wScan = 22480;
+		ip.ki.wScan = 0;
 		SendInput(1, &ip, sizeof(INPUT));
-		Sleep(300);
+		Sleep(500);
 		ip.ki.dwFlags = KEYEVENTF_SCANCODE | KEYEVENTF_KEYUP;
 		SendInput(1, &ip, sizeof(INPUT));
 		Command = " ";

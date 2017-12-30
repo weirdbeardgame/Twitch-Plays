@@ -119,6 +119,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="choices.cpp" />
+    <ClCompile Include="conection.cpp" />
     <ClCompile Include="IRC.cpp" />
     <ClCompile Include="Keys.cpp" />
     <ClCompile Include="Main.cpp" />
@@ -127,8 +128,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="choices.h" />
+    <ClInclude Include="conection.h" />
     <ClInclude Include="IRC.h" />
     <ClInclude Include="json.hpp" />
+    <ClInclude Include="keyboard.h" />
     <ClInclude Include="Keys.h" />
     <ClInclude Include="Settings.h" />
     <ClInclude Include="Text_Commands.h" />

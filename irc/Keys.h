@@ -5,6 +5,8 @@
 #include <Windows.h>
 #include <vector>
 #include <queue>
+#include "keyboard.h"
+
 
 class Keys
 {
@@ -14,6 +16,7 @@ private:
 	int keyResult = 0;
 	int buffSize = 0; 
 	INPUT ip;
+	keyboard keylist;
 	std::string filePath = "Commands.txt";
 	std::ofstream fout;
 
@@ -22,6 +25,7 @@ public:
 	void translateCommand(std::string Command);
 	void pushToQueue(std::string s);
 	void pullFromQueue();
+	void sendKey(keyboard k);
 	~Keys();
 };
 
