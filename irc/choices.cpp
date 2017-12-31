@@ -9,8 +9,8 @@ choices::choices()
 
 void choices::menu(std::string &oauth, std::string &userName, std::string &botName, std::string &service)
 {
-	std::cout << "Welcome to Twitch Plays" << std::endl
-		<< "Options are: " << std::endl
+	std::cout << "Service: " << service << std::endl;
+	std::cout << "Welcome Options are: " << std::endl
 		<< "C: Connect and play let the bot play" << std::endl
 		<< "S: Edit Settings" << std::endl
 		<< "Q: Quit" << std::endl;
@@ -27,7 +27,17 @@ void choices::execute_choice(std::string &oauth, std::string &userName, std::str
 	switch (options)
 	{	
 	case 'C':
-		connect.connection(oauth, userName, botName, service);
+		if (service == "Twitch")
+		{
+			twitch *tw = new twitch;
+			tw->connectTwitch(oauth, userName, botName, service);
+		}
+
+		else if (service == "Youtube")
+		{
+			youtube *yt = new youtube;
+		}
+
 		break;
 
 	case 'S':
