@@ -13,11 +13,10 @@ void twitch::connectTwitch(std::string &oauth, std::string &userName, std::strin
 {
 	std::vector <char> recieve(512);		
 		
-	std::cerr << "hostname and port" << std::endl;
 
 	twitchBot.initalize(s);
 
-	while (twitchBot.getState() == state::CONNECTING)
+	while (twitchBot.getState() == state::SENDING)
 	{
 		/*****************************************
 		* Below is the list of sent buffers for
@@ -26,12 +25,12 @@ void twitch::connectTwitch(std::string &oauth, std::string &userName, std::strin
 		sendBuf = "PASS " + oauth + "\r\n";
 
 		len = sendBuf.length();
-		twitchBot.sendAll(*s, sendBuf, &len);
+		twitchBot.sendAll(s, sendBuf, &len);
 
 		if (twitchBot.getStatus() == SOCKET_ERROR)
 		{
 			std::cerr << "send failed with error: " << WSAGetLastError() << std::endl;
-			closesocket(*s);
+			closesocket(s);
 			WSACleanup();
 			twitchBot.setState(state::CONNECTIONERROR);
 		}
@@ -41,12 +40,12 @@ void twitch::connectTwitch(std::string &oauth, std::string &userName, std::strin
 		sendBuf = "NICK " + botName + "\r\n";
 
 		len = sendBuf.length();
-		twitchBot.sendAll(*s, sendBuf, &len);
+		twitchBot.sendAll(s, sendBuf, &len);
 
 		if (twitchBot.getStatus() == SOCKET_ERROR)
 		{
 			std::cerr << "send failed with error: " << WSAGetLastError() << std::endl;
-			closesocket(*s);
+			closesocket(s);
 			WSACleanup();
 			twitchBot.setState(state::CONNECTIONERROR);
 		}
@@ -57,12 +56,12 @@ void twitch::connectTwitch(std::string &oauth, std::string &userName, std::strin
 
 		len = sendBuf.length();
 
-		twitchBot.sendAll(*s, sendBuf, &len);
+		twitchBot.sendAll(s, sendBuf, &len);
 
 		if (twitchBot.getStatus() == SOCKET_ERROR)
 		{
 			std::cerr << "send failed with error: " << WSAGetLastError() << std::endl;
-			closesocket(*s);
+			closesocket(s);
 			WSACleanup();
 			twitchBot.setState(state::CONNECTIONERROR);
 		}
@@ -71,24 +70,24 @@ void twitch::connectTwitch(std::string &oauth, std::string &userName, std::strin
 
 		sendBuf = "CAP REQ :twitch.tv/membership\r\n";
 		len = sendBuf.length();
-		twitchBot.sendAll(*s, sendBuf, &len);
+		twitchBot.sendAll(s, sendBuf, &len);
 
 		if (twitchBot.getStatus() == SOCKET_ERROR)
 		{
 			std::cerr << "send failed with error: " << WSAGetLastError() << std::endl;
-			closesocket(*s);
+			closesocket(s);
 			WSACleanup();
 			twitchBot.setState(state::CONNECTIONERROR);
 		}
 
 		sendBuf = "CAP REQ :twitch.tv/commands\r\n";
 		len = sendBuf.length();
-		twitchBot.sendAll(*s, sendBuf, &len);
+		twitchBot.sendAll(s, sendBuf, &len);
 
 		if (twitchBot.getStatus() == SOCKET_ERROR)
 		{
 			std::cerr << "send failed with error: " << WSAGetLastError() << std::endl;
-			closesocket(*s);
+			closesocket(s);
 			WSACleanup();
 			twitchBot.setState(state::CONNECTIONERROR);
 		}
@@ -99,12 +98,12 @@ void twitch::connectTwitch(std::string &oauth, std::string &userName, std::strin
 
 	while (twitchBot.getState() == state::CONNECTED)
 	{
-		twitchBot.receiveAll(*s, recieve);
+		twitchBot.receiveAll(s, recieve);
 
 		if (std::find(recieve.begin(), recieve.end(), 'PING') != recieve.end())
 		{
 			len = strlen(pong);
-			twitchBot.sendAll(*s, pong, &len);
+			twitchBot.sendAll(s, pong, &len);
 			std::cout << "Pong" << std::endl;
 		}
 	}

@@ -7,7 +7,7 @@ private:
 	conection twitchBot;
 	std::string botName;
 	std::string sendBuf;
-	SOCKET *s;
+	SOCKET s;
 	
 	char * pong = "PONG tmi.twitch.tv";
 	int len;

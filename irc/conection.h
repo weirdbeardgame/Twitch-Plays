@@ -13,7 +13,7 @@
 #pragma comment (lib, "Mswsock.lib")
 #pragma comment (lib, "AdvApi32.lib")
 
-enum class state { CONNECTING, CONNECTED, CONNECTIONERROR };
+enum class state { CONNECTING, SENDING, CONNECTED, CONNECTIONERROR };
 
 class conection
 {
@@ -29,7 +29,7 @@ private:
 public:
 	conection();	
 	int receiveAll(int s, std::vector <char> recieve);
-	int initalize(SOCKET *connectSocket);
+	int initalize(SOCKET &connectSocket);
 	void sendAll(int s, std::string buff, int *len);		
 
 	std::string setHostName(std::string h) { return hostName = h; }
