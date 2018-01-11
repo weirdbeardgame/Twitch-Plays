@@ -76,10 +76,13 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\Users\Timothy\CMakeBuilds\4cc0e13e-9d2a-1a3c-944c-32cf3daed317\install\x86-Release\include\curl;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <UACUIAccess>false</UACUIAccess>
       <UACExecutionLevel>HighestAvailable</UACExecutionLevel>
+      <AdditionalLibraryDirectories>C:\Users\Timothy\CMakeBuilds\4cc0e13e-9d2a-1a3c-944c-32cf3daed317\install\x86-Release\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>libcurl.dll;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -120,6 +123,7 @@
   <ItemGroup>
     <ClCompile Include="choices.cpp" />
     <ClCompile Include="conection.cpp" />
+    <ClCompile Include="Join.cpp" />
     <ClCompile Include="Keys.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Settings.cpp" />
@@ -130,6 +134,7 @@
   <ItemGroup>
     <ClInclude Include="choices.h" />
     <ClInclude Include="conection.h" />
+    <ClInclude Include="Join.h" />
     <ClInclude Include="json.hpp" />
     <ClInclude Include="keyboard.h" />
     <ClInclude Include="Keys.h" />
@@ -138,7 +143,19 @@
     <ClInclude Include="twitch.h" />
     <ClInclude Include="youtube.h" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
+    <Import Project="..\packages\nupengl.core.redist.0.1.0.1\build\native\nupengl.core.redist.targets" Condition="Exists('..\packages\nupengl.core.redist.0.1.0.1\build\native\nupengl.core.redist.targets')" />
+    <Import Project="..\packages\nupengl.core.0.1.0.1\build\native\nupengl.core.targets" Condition="Exists('..\packages\nupengl.core.0.1.0.1\build\native\nupengl.core.targets')" />
   </ImportGroup>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\nupengl.core.redist.0.1.0.1\build\native\nupengl.core.redist.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\nupengl.core.redist.0.1.0.1\build\native\nupengl.core.redist.targets'))" />
+    <Error Condition="!Exists('..\packages\nupengl.core.0.1.0.1\build\native\nupengl.core.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\nupengl.core.0.1.0.1\build\native\nupengl.core.targets'))" />
+  </Target>
 </Project>

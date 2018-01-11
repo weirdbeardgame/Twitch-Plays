@@ -1,5 +1,4 @@
 #pragma once
-#define _WINSOCK_DEPRECATED_NO_WARNINGS
 #include <winsock2.h>
 #include <ws2tcpip.h>
 #include <stdlib.h>
@@ -13,33 +12,31 @@
 #pragma comment (lib, "Mswsock.lib")
 #pragma comment (lib, "AdvApi32.lib")
 
+class Join
+{
 enum class state { CONNECTING, SENDING, CONNECTED, CONNECTIONERROR };
 
-class conection
-{
 private:
-	WSADATA wsaData;
-	int status = 0;
-	std::string hostName;
-	std::string service;
-	state st;
-	char *port;		
 	struct addrinfo server, *result, *ptr;
+	WSADATA wsaData;
+	SOCKET connectSocket;
+	int len = 0;
+	int status = 0;	
+	std::string hostName;
+	std::string service;	
+	std::string redirect = "https://api.twitch.tv/kraken/oauth2/authorize?response_type=token&client_id=ko5qwxt9xu6acgu2gil3rrw9n243pz&redirect_uri=http://localhost&scope=channel_feed_read";
+	std::string sendBuf;
+	state st;
+	char *port;
+	char recieveBuf[512];
 
 public:
-	conection();	
+	Join();
+	void channel();
 	int receiveAll(int s, char *recieve);
-	int initalize(SOCKET &connectSocket);
-	void sendAll(int s, std::string buff, int *len);		
-
-	std::string setHostName(std::string h) { return hostName = h; }
+	void sendAll(int s, std::string buff, int *len);
 	state setState(state s) { return st = s; }
 	state getState() { return st; }
-	bool findObject(char *ob, char recieve[]);
-	char* setPort(char* p) { return port = p; }
-	int getStatus() { return status; }
-	int setStatus(int s) { return status = s; }
-	
-	~conection();
+	~Join();
 };
 

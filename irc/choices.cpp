@@ -7,10 +7,11 @@ choices::choices()
 
 }
 
-void choices::menu(std::string &oauth, std::string &userName, std::string &botName, std::string &service)
+void choices::menu()
 {
 	std::cout << "Service: " << service << std::endl;
 	std::cout << "Welcome Options are: " << std::endl
+		<< "J: Join Your Channel" << std::endl
 		<< "C: Connect and play let the bot play" << std::endl
 		<< "S: Edit Settings" << std::endl
 		<< "Q: Quit" << std::endl;
@@ -18,35 +19,40 @@ void choices::menu(std::string &oauth, std::string &userName, std::string &botNa
 	std::cout << "> ";
 	std::cin >> options;
 	options = toupper(options);
-	execute_choice(oauth, userName, botName, service);
+	execute_choice();
 }
 
-void choices::execute_choice(std::string &oauth, std::string &userName, std::string &botName, std::string &service)
+void choices::execute_choice()
 {
+	std::string userName;
+	if (options == 'J')
+	{
+		Join *j = new Join;
+		j->channel();
+	}
 
-	switch (options)
-	{	
-	case 'C':
+	if (options == 'C')
+	{
 		if (service == "Twitch")
 		{
 			twitch *tw = new twitch;
-			tw->connectTwitch(oauth, userName, botName, service);
+			tw->connectTwitch();
 		}
 
 		else if (service == "Youtube")
 		{
-			youtube *yt = new youtube;
+			std::cout << "Not implmented" << std::endl;
 		}
+	}
 
-		break;
+	if (options == 'S')
+	{		
+		set.editSettings();
+	}
 
-	case 'S':
-		set.editSettings(oauth, userName, botName,  service);
-		break;
-
-	case 'Q':
+	if (options == 'Q')
+	{
 		exit(0);
-		break;
 	}
 
 }

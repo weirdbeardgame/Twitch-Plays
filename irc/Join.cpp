@@ -1,13 +1,14 @@
-#include "conection.h"
+#include "Join.h"
 
 
 
-conection::conection()
+Join::Join()
 {
-
+	
 }
 
-int conection::receiveAll(int s, char* recieve)
+
+int Join::receiveAll(int s, char* recieve)
 {
 	int n = 0;
 	int left = 512;
@@ -40,13 +41,13 @@ int conection::receiveAll(int s, char* recieve)
 			{
 				left = 512;
 			}
-
-			return (n <= 0) ? -1 : 0;
 		}
 	}
+	return (n <= 0) ? -1 : 0;
+
 }
 
-void conection::sendAll(int s, std::string buf, int *len)
+void Join::sendAll(int s, std::string buf, int *len)
 {
 	int left = *len;
 	int tot = 0;
@@ -69,50 +70,31 @@ void conection::sendAll(int s, std::string buf, int *len)
 	*len = tot;
 }
 
-bool conection::findObject(char *ob, char recieve[])
-{		
-	if (strstr(recieve, ob) != NULL)	
-	{			
-		return true;	
-	}
-	
-	else	
-	{			
-		return false;		
-	}
 
-	ob = NULL;
-}
-
-
-int conection::initalize(SOCKET &connectSocket)
-{		std::cout << "CONNECTING TO: " << service << std::endl;
-
-std::cerr << "Hostname: " << hostName  << " port: " << port << std::endl;
-
-
-setState(state::CONNECTING);
-
-	
-while (st == state::CONNECTING)
+void Join::channel()
 {
-	// Initialize Winsock	
+// Initialize Winsock	
 	status = WSAStartup(MAKEWORD(2, 2), &wsaData);
 	if (status != 0)
 	{
 		std::cerr << "WSAStartup failed with error: " << status << std::endl;
-		setState(state::CONNECTIONERROR);
 	}
+
+	std::cerr << "WSA startup happened" << std::endl;
 
 	//To clear the struct of junk data.
 	memset(&server, 0, sizeof(server));
+
+	std::cerr << "Memory cleared" << std::endl;
 
 	//The basic initalizing setting for winsock.
 	server.ai_family = AF_UNSPEC;
 	server.ai_socktype = SOCK_STREAM;
 	server.ai_protocol = IPPROTO_TCP;
 
-	status = getaddrinfo(hostName.c_str(), port, &server, &result);
+	status = getaddrinfo("https://api.twitch.tv/kraken/oauth2/authorize", "80", &server, &result);
+
+	std::cerr << "Hostname set" << std::endl;
 
 	for (ptr = result; ptr != NULL; ptr = ptr->ai_next)
 	{
@@ -125,7 +107,6 @@ while (st == state::CONNECTING)
 		{
 			std::cerr << "socket failed with error: " << WSAGetLastError() << std::endl;
 			WSACleanup();
-			setState(state::CONNECTIONERROR);
 		}
 
 		// Connect to ip address
@@ -136,9 +117,10 @@ while (st == state::CONNECTING)
 			closesocket(connectSocket);
 			connectSocket = INVALID_SOCKET;
 			std::cerr << "Invalid address" << std::endl;
-			setState(state::CONNECTIONERROR);
 		}
 	}
+
+	std::cerr << "A socket is you" << std::endl;
 
 	freeaddrinfo(result);
 
@@ -147,7 +129,6 @@ while (st == state::CONNECTING)
 		std::cerr << "Unable to Connect" << "Error: " << WSAGetLastError() << std::endl;
 		system("PAUSE");
 		WSACleanup();
-		setState(state::CONNECTIONERROR);
 	}
 
 	if (st == state::CONNECTIONERROR)
@@ -158,11 +139,18 @@ while (st == state::CONNECTING)
 	}
 
 	setState(state::SENDING);
-}
-	return 0;
+
+	while (st == state::SENDING)
+	{
+		sendBuf = "GET https://api.twitch.tv/kraken/oauth2/authorize?response_type=token&client_id=ko5qwxt9xu6acgu2gil3rrw9n243pz&redirect_uri=http://localhost&scope=channel_feed_read HTTP/1.1\r\n";
+		len = sendBuf.length();
+		sendAll(connectSocket, sendBuf, &len);
+	}
+
 }
 
 
-conection::~conection()
+
+Join::~Join()
 {
 }

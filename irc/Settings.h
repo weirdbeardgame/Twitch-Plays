@@ -11,14 +11,21 @@ class Settings
 private:
 	std::ifstream settingFile;
 	std::ofstream outputFile;
+	std::string userName;
+	std::string service;
+	std::string oauth;
 	jsonf setting;
 public:
 	Settings();
-	void initalize(std::string &oauth, std::string &userName, std::string &botName, std::string &service);
-	void defaultSettings(std::string &oauth, std::string &userName, std::string &botName, std::string &service);
-	void readSettings(std::string &oauth, std::string &userName, std::string &botName, std::string &service);
-	void editSettings(std::string &oauth, std::string &userName, std::string &botName, std::string &service);
+	void initalize();
+	void defaultSettings();
+	void readSettings();
+	void editSettings();
 	void writeSettings(jsonf stream);
+	void setUserName(std::string us);
+	void setOathToken(std::string ot);
+	std::string getUserName();
+	std::string getOauthToken();
 	~Settings();
 };
 
