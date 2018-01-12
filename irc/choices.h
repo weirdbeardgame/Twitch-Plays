@@ -3,7 +3,6 @@
 #include "twitch.h"
 #include "youtube.h"
 #include "Settings.h"
-#include "Join.h"
 class choices
 {
 private:

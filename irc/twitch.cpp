@@ -48,8 +48,6 @@ void twitch::connectTwitch()
 
 		std::cerr << "Nick name sent" << std::endl;
 
-		
-
 		sendBuf = "CAP REQ :twitch.tv/membership\r\n";
 		len = sendBuf.length();
 		twitchBot.sendAll(s, sendBuf, &len);
@@ -94,6 +92,52 @@ void twitch::connectTwitch()
 			key.pushToQueue("Up");
 
 		}
+
+		if (twitchBot.findObject("Left", recieve))
+		{
+			key.pushToQueue("Left");
+		}
+
+		else if (twitchBot.findObject("Right", recieve))
+		{
+			key.pushToQueue("Right");
+		}
+
+		if (twitchBot.findObject("Down", recieve))
+		{
+			key.pushToQueue("Down");
+		}
+
+		else if (twitchBot.findObject("Cross", recieve))
+		{
+			key.pushToQueue("Cross");
+		}
+
+		if (twitchBot.findObject("Circle", recieve))
+		{
+			key.pushToQueue("Circle");
+		}
+
+		else if (twitchBot.findObject("Square", recieve))
+		{
+			key.pushToQueue("Square");
+		}
+
+		if (twitchBot.findObject("Triangle", recieve))
+		{
+			key.pushToQueue("Triangle");
+		}
+
+		else if (twitchBot.findObject("Start", recieve))
+		{
+			key.pushToQueue("Start");
+		}
+
+		if (twitchBot.findObject("Select", recieve))
+		{
+			key.pushToQueue("Select");
+		}
+
 	}
 }
 

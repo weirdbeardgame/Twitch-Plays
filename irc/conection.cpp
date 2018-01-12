@@ -119,8 +119,6 @@ while (st == state::CONNECTING)
 		// Create a SOCKET for connecting to server
 		connectSocket = socket(ptr->ai_family, ptr->ai_socktype, ptr->ai_protocol);
 
-		std::cerr << "Socket created" << std::endl;
-
 		if (connectSocket == INVALID_SOCKET)
 		{
 			std::cerr << "socket failed with error: " << WSAGetLastError() << std::endl;

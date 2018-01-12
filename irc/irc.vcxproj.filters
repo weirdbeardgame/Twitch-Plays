@@ -39,9 +39,6 @@
     <ClCompile Include="youtube.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Join.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Keys.h">
@@ -69,9 +66,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="youtube.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Join.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

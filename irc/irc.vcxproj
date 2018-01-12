@@ -76,13 +76,13 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>C:\Users\Timothy\CMakeBuilds\4cc0e13e-9d2a-1a3c-944c-32cf3daed317\install\x86-Release\include\curl;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <UACUIAccess>false</UACUIAccess>
       <UACExecutionLevel>HighestAvailable</UACExecutionLevel>
-      <AdditionalLibraryDirectories>C:\Users\Timothy\CMakeBuilds\4cc0e13e-9d2a-1a3c-944c-32cf3daed317\install\x86-Release\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>libcurl.dll;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -123,7 +123,6 @@
   <ItemGroup>
     <ClCompile Include="choices.cpp" />
     <ClCompile Include="conection.cpp" />
-    <ClCompile Include="Join.cpp" />
     <ClCompile Include="Keys.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Settings.cpp" />
@@ -134,7 +133,6 @@
   <ItemGroup>
     <ClInclude Include="choices.h" />
     <ClInclude Include="conection.h" />
-    <ClInclude Include="Join.h" />
     <ClInclude Include="json.hpp" />
     <ClInclude Include="keyboard.h" />
     <ClInclude Include="Keys.h" />

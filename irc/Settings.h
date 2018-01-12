@@ -22,8 +22,8 @@ public:
 	void readSettings();
 	void editSettings();
 	void writeSettings(jsonf stream);
-	void setUserName(std::string us);
-	void setOathToken(std::string ot);
+	void setUserName();
+	void setOathToken();
 	std::string getUserName();
 	std::string getOauthToken();
 	~Settings();
