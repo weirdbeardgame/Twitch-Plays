@@ -7,7 +7,7 @@ choices::choices()
 
 }
 
-void choices::menu()
+void choices::menu(std::string &o)
 {
 	std::cout << "Service: " << service << std::endl;
 	std::cout << "Welcome Options are: " << std::endl
@@ -18,17 +18,16 @@ void choices::menu()
 	std::cout << "> ";
 	std::cin >> options;
 	options = toupper(options);
-	execute_choice();
+	execute_choice(o);
 }
 
-void choices::execute_choice()
+void choices::execute_choice(std::string &o)
 {
 	if (options == 'C')
 	{
 		if (service == "Twitch")
 		{
-			twitch *tw = new twitch;
-			tw->connectTwitch();
+			tw.connectTwitch(o);
 		}
 
 		else if (service == "Youtube")
@@ -39,7 +38,7 @@ void choices::execute_choice()
 
 	if (options == 'S')
 	{		
-		set.editSettings();
+		set.editSettings(o);
 	}
 
 	if (options == 'Q')

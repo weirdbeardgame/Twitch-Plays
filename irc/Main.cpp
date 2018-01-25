@@ -6,12 +6,14 @@ int main()
 {
 	choices Menu;
 	Settings set;
+	std::string oauth;
 
-	set.initalize();
+
+	set.initalize(oauth);
 	
 	while (true)
 	{
-		Menu.menu();
+		Menu.menu(oauth);
 	}
 	
 	return  0;

@@ -11,15 +11,17 @@ private:
 	std::string botName = "Control_Bot";
 	std::string sendBuf;
 	std::string userName = set.getUserName();
-	std::string oauth = set.getOauthToken();
 	SOCKET s;
 	Keys key;
-
+	char recievebuf[512];
 	char * pong = "PONG tmi.twitch.tv";
 	int len;
 public:
 	twitch();
-	void connectTwitch();
+	int receiveAll(int s, char *recieve);
+	bool findObject(char *ob, char recieve[]);
+	void connectTwitch(std::string &o);
+	void recieving();
 	~twitch();
 
 };

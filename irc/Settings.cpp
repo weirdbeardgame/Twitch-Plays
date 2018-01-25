@@ -4,7 +4,7 @@ Settings::Settings()
 {
 }
 
-void Settings::initalize()
+void Settings::initalize(std::string &o)
 {
 	settingFile.open("settings.json");
 
@@ -16,7 +16,7 @@ void Settings::initalize()
 	else
 	{
 		setting = jsonf::parse(settingFile);
-		readSettings();
+		readSettings(o);
 	}
 }
 
@@ -32,20 +32,21 @@ void Settings::defaultSettings()
 	writeSettings(setting);
 }
 
-void Settings::readSettings()
+void Settings::readSettings(std::string &o)
 {
 		service = setting["Service"].get<std::string>();
 		userName = setting["channelName"].get<std::string>();
-		oauth = setting["Oauth"].get<std::string>();
+		o = setting["Oauth"].get<std::string>();
 }
 
-void Settings::editSettings()
+void Settings::editSettings(std::string &o)
 { 
 	char options;
 
 	std::cout << "current setting's are: "
 		<< "Service: " << service << std::endl
-		<< "Channel Name: " << userName << std::endl;
+		<< "Channel Name: " << userName << std::endl
+		<< "Oauth Token: " << o << std::endl;
 
 	std::cout << "Options are: " << std::endl;
 	std::cout << "C: Edit Channel name" << std::endl
@@ -68,7 +69,8 @@ void Settings::editSettings()
 		break;
 
 	case 'O':
-		setOathToken();
+
+		setOathToken(o);
 		break;
 
 
@@ -96,6 +98,7 @@ void Settings::writeSettings(jsonf stream)
 
 void Settings::setUserName()
 {
+	std::cout << ">";
 	std::cin.ignore();
 	std::getline(std::cin, userName);
 	setting["channelName"] = userName;
@@ -104,10 +107,12 @@ void Settings::setUserName()
 	writeSettings(setting);
 }
 
-void Settings::setOathToken()
+void Settings::setOathToken(std::string &o)
 {
+	std::cout << ">";
 	std::cin.ignore();
-	std::getline(std::cin, oauth);
+	std::getline(std::cin, o);
+	oauth = o;
 	setting["channelName"] = userName;
 	setting["Service"] = "Twitch";
 	setting["Oauth"] = oauth;

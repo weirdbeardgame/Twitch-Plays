@@ -80,8 +80,6 @@ bool conection::findObject(char *ob, char recieve[])
 	{			
 		return false;		
 	}
-
-	ob = NULL;
 }
 
 

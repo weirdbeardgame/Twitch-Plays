@@ -17,13 +17,13 @@ private:
 	jsonf setting;
 public:
 	Settings();
-	void initalize();
+	void initalize(std::string &o);
 	void defaultSettings();
-	void readSettings();
-	void editSettings();
+	void readSettings(std::string &o);
+	void editSettings(std::string &o);
 	void writeSettings(jsonf stream);
 	void setUserName();
-	void setOathToken();
+	void setOathToken(std::string &o);
 	std::string getUserName();
 	std::string getOauthToken();
 	~Settings();

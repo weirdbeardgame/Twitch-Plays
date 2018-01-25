@@ -8,12 +8,13 @@ class choices
 private:
 	char options = NULL;
 	std::string service = "Twitch";
+	Settings set;
+	twitch tw;
 
 public:
 	choices();
-	void menu();
-	Settings set;
-	void execute_choice();
+	void menu(std::string &o);
+	void execute_choice(std::string &o);
 	~choices();
 };
 
