@@ -4,7 +4,7 @@ Settings::Settings()
 {
 }
 
-void Settings::initalize(std::string &o)
+void Settings::initalize(std::string &o, std::string &u)
 {
 	settingFile.open("settings.json");
 
@@ -16,7 +16,7 @@ void Settings::initalize(std::string &o)
 	else
 	{
 		setting = jsonf::parse(settingFile);
-		readSettings(o);
+		readSettings(o, u);
 	}
 }
 
@@ -32,14 +32,14 @@ void Settings::defaultSettings()
 	writeSettings(setting);
 }
 
-void Settings::readSettings(std::string &o)
+void Settings::readSettings(std::string &o, std::string &u)
 {
 		service = setting["Service"].get<std::string>();
-		userName = setting["channelName"].get<std::string>();
+		u = setting["channelName"].get<std::string>();
 		o = setting["Oauth"].get<std::string>();
 }
 
-void Settings::editSettings(std::string &o)
+void Settings::editSettings(std::string &o, std::string &u)
 { 
 	char options;
 
@@ -61,7 +61,7 @@ void Settings::editSettings(std::string &o)
 	{
 	case 'C':
 		std::cout << "Channel is: ";
-		setUserName();
+		setUserName(u);
 		break;
 
 	case 'B':
@@ -96,11 +96,12 @@ void Settings::writeSettings(jsonf stream)
 	outputFile << std::setw(4) << stream << std::endl;
 }
 
-void Settings::setUserName()
+void Settings::setUserName(std::string &u)
 {
 	std::cout << ">";
 	std::cin.ignore();
-	std::getline(std::cin, userName);
+	std::getline(std::cin, u);
+	userName = u;
 	setting["channelName"] = userName;
 	setting["Service"] = "Twitch";
 	setting["Oauth"] = oauth; 

@@ -10,7 +10,6 @@ private:
 	conection twitchBot;
 	std::string botName = "Control_Bot";
 	std::string sendBuf;
-	std::string userName = set.getUserName();
 	SOCKET s;
 	Keys key;
 	char recievebuf[512];
@@ -18,9 +17,8 @@ private:
 	int len;
 public:
 	twitch();
-	int receiveAll(int s, char *recieve);
 	bool findObject(char *ob, char recieve[]);
-	void connectTwitch(std::string &o);
+	void connectTwitch(std::string &o, std::string &u);
 	void recieving();
 	~twitch();
 

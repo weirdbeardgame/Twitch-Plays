@@ -7,13 +7,13 @@ int main()
 	choices Menu;
 	Settings set;
 	std::string oauth;
+	std::string userName;
 
-
-	set.initalize(oauth);
+	set.initalize(oauth, userName);
 	
 	while (true)
 	{
-		Menu.menu(oauth);
+		Menu.menu(oauth, userName);
 	}
 	
 	return  0;

@@ -28,7 +28,7 @@ private:
 
 public:
 	conection();	
-	int receiveAll(int s, char *recieve);
+	int receiveAll(int s, char *recievebuf);
 	int initalize(SOCKET &connectSocket);
 	void sendAll(int s, std::string buff, int *len);		
 

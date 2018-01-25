@@ -7,45 +7,45 @@ conection::conection()
 
 }
 
-int conection::receiveAll(int s, char* recieve)
-{
+int conection::receiveAll(int s, char * recievebuf)
+ {
 	int n = 0;
+	int total = 0;
 	int left = 512;
 	int len = 0;
 
-	while (left > 0)
+	while (total < 512)
 	{
-		n = recv(s, recieve, left, 0);
-
-		if (n == -1)
+		n = recv(s, recievebuf, left, 0);
+		if (n <= 0)
 		{
-			std::cerr << "recv failed with error: " << WSAGetLastError() << std::endl;
+			std::cout << "recv failed with error: " << WSAGetLastError() << std::endl;
 			break;
 		}
 
-		else
+		total += n;
+		left -= n;
+		total++;
+
+		if (n > 0)
 		{
-			left--;
-
-			if (n > 0)
+			for (int x = 0; x < n; x++)
 			{
-				for (int x = 0; x < n; x++)
-				{
-					std::cout << recieve[x];
-				}
+				std::cout << recievebuf[x];
 			}
-
-			//Reset the Loop above.
-			if (left == 0)
-			{
-				left = 512;
-			}
-
-			return (n <= 0) ? -1 : 0;
 		}
 	}
-}
 
+	//Reset the Loop above.
+
+	if (total == 512)
+	{
+		total = 0;
+	}
+
+	return (n <= 0) ? -1 : 0;
+}
+	
 void conection::sendAll(int s, std::string buf, int *len)
 {
 	int left = *len;
