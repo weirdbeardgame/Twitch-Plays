@@ -29,6 +29,11 @@ loaded by obs to show the command queue on stream.
 
 **A:** this program automatically generates a commands.txt file that can be used in conjunction with OBS to show what's currently on queue. 
 
+**Q:** What are the set commands?
+
+**A:** Up, Down, Left, Right, Cross, Circle, Triangle, Square, Start, Select
+The entire thing is setup for now at least like a PlayStation controller. Remapable commands coming soon.
+
 
 **Built with:**
  Nlohmann json library: https://github.com/nlohmann/json
