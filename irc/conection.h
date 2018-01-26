@@ -7,6 +7,7 @@
 #include <string>
 #include <vector>
 #include <iostream>
+#include "Keys.h"
 
 // Need to link with Ws2_32.lib, Mswsock.lib, and Advapi32.lib
 #pragma comment (lib, "Ws2_32.lib")
@@ -23,7 +24,9 @@ private:
 	std::string hostName;
 	std::string service;
 	state st;
+	Keys key;
 	char *port;		
+	char * pong = "PONG tmi.twitch.tv";
 	struct addrinfo server, *result, *ptr;
 
 public:

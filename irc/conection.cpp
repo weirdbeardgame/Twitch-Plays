@@ -33,6 +33,63 @@ int conection::receiveAll(int s, char * recievebuf)
 			{
 				std::cout << recievebuf[x];
 			}
+
+			if (findObject("PING", recievebuf))
+			{
+				len = strlen(pong);
+				std::cout << "Pong" << std::endl;
+				sendAll(s, pong, &len);
+			}
+
+			else if (findObject("Up", recievebuf))
+			{
+				key.pushToQueue("Up");
+			}
+
+			if (findObject("Left", recievebuf))
+			{
+				key.pushToQueue("Left");
+			}
+
+			else if (findObject("Right", recievebuf))
+			{
+				key.pushToQueue("Right");
+			}
+
+			if (findObject("Down", recievebuf))
+			{
+				key.pushToQueue("Down");
+			}
+
+			else if (findObject("Cross", recievebuf))
+			{
+				key.pushToQueue("Cross");
+			}
+
+			if (findObject("Circle", recievebuf))
+			{
+				key.pushToQueue("Circle");
+			}
+
+			else if (findObject("Square", recievebuf))
+			{
+				key.pushToQueue("Square");
+			}
+
+			if (findObject("Triangle", recievebuf))
+			{
+				key.pushToQueue("Triangle");
+			}
+
+			else if (findObject("Start", recievebuf))
+			{
+				key.pushToQueue("Start");
+			}
+
+			if (findObject("Select", recievebuf))
+			{
+				key.pushToQueue("Select");
+			}
 		}
 	}
 
