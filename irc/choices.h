@@ -13,8 +13,8 @@ private:
 
 public:
 	choices();
-	void menu(std::string &o, std::string &u);
-	void execute_choice(std::string &o, std::string &u);
+	void menu();
+	void execute_choice();
 	~choices();
 };
 

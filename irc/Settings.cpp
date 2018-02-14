@@ -4,7 +4,7 @@ Settings::Settings()
 {
 }
 
-void Settings::initalize(std::string &o, std::string &u)
+void Settings::initalize()
 {
 	settingFile.open("settings.json");
 
@@ -16,7 +16,7 @@ void Settings::initalize(std::string &o, std::string &u)
 	else
 	{
 		setting = jsonf::parse(settingFile);
-		readSettings(o, u);
+		readSettings();
 	}
 }
 
@@ -26,27 +26,20 @@ void Settings::defaultSettings()
 	{						
     {"Service", "Twitch" },		
 	{"channelName", "The name of your twitch channel to join" },
-	{"Oauth", "Required to join your channel"},
-	{"Keys", {
-		"Up", 22472,
-	   "Down", 22480,
-	   "Left", 22477,
-	   "Right", 22477,
-	}
-	}
+	{"Oauth", "Required to join your channel"}
 	};
 
 	writeSettings(setting);
 }
 
-void Settings::readSettings(std::string &o, std::string &u)
+void Settings::readSettings()
 {
 		service = setting["Service"].get<std::string>();
-		u = setting["channelName"].get<std::string>();
-		o = setting["Oauth"].get<std::string>();
+		userName = setting["channelName"].get<std::string>();
+		oauth = setting["Oauth"].get<std::string>();
 }
 
-void Settings::editSettings(std::string &o, std::string &u)
+void Settings::editSettings()
 { 
 	char options;
 
@@ -68,7 +61,7 @@ void Settings::editSettings(std::string &o, std::string &u)
 	{
 	case 'C':
 		std::cout << "Channel is: ";
-		setUserName(u);
+		setUserName(userName);
 		break;
 
 	case 'B':
@@ -76,14 +69,14 @@ void Settings::editSettings(std::string &o, std::string &u)
 		break;
 
 	case 'O':
-		setOathToken(o);
+		setOathToken(oauth);
 		break;
 
 
 	case 'S':
 		std::cout << "Not yet implemented." << std::endl;
 		break;
-	}
+	}	 
 }
 
 void Settings::writeSettings(jsonf stream)
@@ -100,7 +93,7 @@ void Settings::writeSettings(jsonf stream)
 	outputFile << std::setw(4) << stream << std::endl;
 }
 
-void Settings::setUserName(std::string &u)
+void Settings::setUserName(const std::string &u)
 {
 	std::cout << ">";
 	std::cin.ignore();
@@ -112,7 +105,7 @@ void Settings::setUserName(std::string &u)
 	writeSettings(setting);
 }
 
-void Settings::setOathToken(std::string &o)
+void Settings::setOathToken(const std::string &o)
 {
 	std::cout << ">";
 	std::cin.ignore();
@@ -124,12 +117,12 @@ void Settings::setOathToken(std::string &o)
 	writeSettings(setting);
 }
 
-std::string Settings::getUserName()
+std::string Settings::getUserName() const
 {
 	return userName;
 }
 
-std::string Settings::getOauthToken()
+std::string Settings::getOauthToken() const
 {
 	return oauth;
 }
