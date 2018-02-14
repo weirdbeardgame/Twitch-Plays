@@ -1,5 +1,15 @@
 {
-    "Oauth": "oauth:m2omy7fs3ipbxyld9cdpt9x1yo8jwe",
+    "Keys": [
+        "Up",
+        22472,
+        "Down",
+        22480,
+        "Left",
+        22477,
+        "Right",
+        22477
+    ],
+    "Oauth": "Required to join your channel",
     "Service": "Twitch",
-    "channelName": "weirdbeardgame"
+    "channelName": "The name of your twitch channel to join"
 }

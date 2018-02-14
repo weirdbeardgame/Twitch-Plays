@@ -26,7 +26,14 @@ void Settings::defaultSettings()
 	{						
     {"Service", "Twitch" },		
 	{"channelName", "The name of your twitch channel to join" },
-	{"Oauth", "Required to join your channel"}
+	{"Oauth", "Required to join your channel"},
+	{"Keys", {
+		"Up", 22472,
+	   "Down", 22480,
+	   "Left", 22477,
+	   "Right", 22477,
+	}
+	}
 	};
 
 	writeSettings(setting);
@@ -69,7 +76,6 @@ void Settings::editSettings(std::string &o, std::string &u)
 		break;
 
 	case 'O':
-
 		setOathToken(o);
 		break;
 
@@ -77,9 +83,7 @@ void Settings::editSettings(std::string &o, std::string &u)
 	case 'S':
 		std::cout << "Not yet implemented." << std::endl;
 		break;
-
 	}
-	 
 }
 
 void Settings::writeSettings(jsonf stream)

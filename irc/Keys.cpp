@@ -30,7 +30,6 @@ void Keys::sendKey(keyboard k)
 {
 	ip.ki.dwFlags = KEYEVENTF_SCANCODE;
 	ip.ki.wScan = keylist.Arrow_Up;
-
 }
 
 void Keys::translateCommand(std::string Command)
@@ -86,7 +85,7 @@ void Keys::translateCommand(std::string Command)
 	if (Command == "Cross" || Command == "cross")
 	{
 		ip.ki.dwFlags = KEYEVENTF_SCANCODE;
-		ip.ki.wScan = 0x2C;
+		ip.ki.wScan = keylist.z;
 		SendInput(1, &ip, sizeof(INPUT));
 		Sleep(100);
 		ip.ki.dwFlags = KEYEVENTF_SCANCODE | KEYEVENTF_KEYUP;
@@ -98,7 +97,7 @@ void Keys::translateCommand(std::string Command)
 	else if (Command == "Circle" || Command == "circle")
 	{
 		ip.ki.dwFlags = KEYEVENTF_SCANCODE;
-		ip.ki.wScan = 0x2D;
+		ip.ki.wScan = keylist.x;
 		SendInput(1, &ip, sizeof(INPUT));
 		Sleep(100);
 		ip.ki.dwFlags = KEYEVENTF_SCANCODE | KEYEVENTF_KEYUP;
@@ -110,7 +109,7 @@ void Keys::translateCommand(std::string Command)
 	if (Command == "Square" || Command == "square")
 	{
 		ip.ki.dwFlags = KEYEVENTF_SCANCODE;
-		ip.ki.wScan = 0x1E;
+		ip.ki.wScan = keylist.a;
 		SendInput(1, &ip, sizeof(INPUT));
 		Sleep(100);
 		ip.ki.dwFlags = KEYEVENTF_SCANCODE | KEYEVENTF_KEYUP;
@@ -122,7 +121,7 @@ void Keys::translateCommand(std::string Command)
 	else if (Command == "Triangle" || Command == "triangle")
 	{
 		ip.ki.dwFlags = KEYEVENTF_SCANCODE;
-		ip.ki.wScan = 0x1F;
+		ip.ki.wScan = keylist.s;
 		SendInput(1, &ip, sizeof(INPUT));
 		Sleep(100);
 		ip.ki.dwFlags = KEYEVENTF_SCANCODE | KEYEVENTF_KEYUP;

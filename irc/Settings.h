@@ -15,6 +15,7 @@ private:
 	std::string service;
 	std::string oauth;
 	jsonf setting;
+	jsonf keys;
 public:
 	Settings();
 	void initalize(std::string &o, std::string &u);
