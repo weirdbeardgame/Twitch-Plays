@@ -20,7 +20,7 @@ bool twitch::findObject(char * ob, char recieve[])
 	}
 }
 
-void twitch::connectTwitch(std::string &o, std::string &u)
+void twitch::connectTwitch()
 {
 	char recieve[512];		
 	twitchBot.initalize(s);
@@ -31,7 +31,7 @@ void twitch::connectTwitch(std::string &o, std::string &u)
 		* Below is the list of sent buffers for
 		* loging into whatever service you may.
 		******************************************/
-		sendBuf = "PASS " + o + "\r\n";
+	  sendBuf = "PASS " + set.getOauth() + "\r\n";
 
 		len = sendBuf.length();
 		twitchBot.sendAll(s, sendBuf, &len);
@@ -61,7 +61,7 @@ void twitch::connectTwitch(std::string &o, std::string &u)
 
 		std::cerr << "Nick name sent" << std::endl;
 
-		sendBuf = "JOIN #" + u + "\r\n";
+		sendBuf = "JOIN #" + set.getUser() + "\r\n";
 		len = sendBuf.length();
 		twitchBot.sendAll(s, sendBuf, &len);
 		
@@ -111,8 +111,6 @@ void twitch::connectTwitch(std::string &o, std::string &u)
 void twitch::recieving()
 {
 	int error = twitchBot.receiveAll(s, recievebuf);
-
-	
 }
 
 twitch::~twitch()

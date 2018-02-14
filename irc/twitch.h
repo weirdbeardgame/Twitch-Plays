@@ -18,7 +18,7 @@ private:
 public:
 	twitch();
 	bool findObject(char *ob, char recieve[]);
-	void connectTwitch(std::string &o, std::string &u);
+	void connectTwitch();
 	void recieving();
 	~twitch();
 

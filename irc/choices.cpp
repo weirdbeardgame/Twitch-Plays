@@ -7,7 +7,7 @@ choices::choices()
 
 }
 
-void choices::menu(std::string &o, std::string &u)
+void choices::menu()
 {
 	std::cout << "Service: " << service << std::endl;
 	std::cout << "Welcome Options are: " << std::endl
@@ -18,10 +18,10 @@ void choices::menu(std::string &o, std::string &u)
 	std::cout << "> ";
 	std::cin >> options;
 	options = toupper(options);
-	execute_choice(o, u);
+	execute_choice();
 }
 
-void choices::execute_choice(std::string &o, std::string &u)
+void choices::execute_choice()
 {
 	if (options == 'C')
 	{
@@ -29,7 +29,7 @@ void choices::execute_choice(std::string &o, std::string &u)
 		{
 			while (true)
 			{
-				tw.connectTwitch(o, u);
+				tw.connectTwitch();
 			}
 		}
 
