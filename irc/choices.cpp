@@ -41,7 +41,7 @@ void choices::execute_choice()
 
 	if (options == 'S')
 	{		
-		set.editSettings(o, u);
+		set.editSettings();
 	}
 
 	if (options == 'Q')

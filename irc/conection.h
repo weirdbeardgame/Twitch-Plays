@@ -25,15 +25,15 @@ private:
 	std::string service;
 	state st;
 	Keys key;
-	char *port;		
+	char *port;
 	char * pong = "PONG tmi.twitch.tv";
 	struct addrinfo server, *result, *ptr;
 
 public:
-	conection();	
+	conection();
 	int receiveAll(int s, char *recievebuf);
 	int initalize(SOCKET &connectSocket);
-	void sendAll(int s, std::string buff, int *len);		
+	void sendAll(int s, std::string buff, int *len);
 
 	std::string setHostName(std::string h) { return hostName = h; }
 	state setState(state s) { return st = s; }
@@ -42,7 +42,7 @@ public:
 	char* setPort(char* p) { return port = p; }
 	int getStatus() { return status; }
 	int setStatus(int s) { return status = s; }
-	
+
 	~conection();
 };
 

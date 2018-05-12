@@ -1,7 +1,7 @@
 #pragma once
 #include <iostream>
 #include <fstream>
-#include <string>
+#include <string.h>
 #include "json.hpp"
 
 using jsonf = nlohmann::json;
@@ -23,10 +23,17 @@ public:
 	void readSettings();
 	void editSettings();
 	void writeSettings(jsonf stream);
-	void setUserName(const std::string &u);
-	void setOathToken(const std::string &o);
-	std::string getUserName() const;
-	std::string getOauthToken();
+	void setUserName(std::string &u);
+	void setOathToken(std::string &o);
+	std::string getUserName() const
+	{
+		return userName;
+	}
+
+	std::string getOauthToken() const
+	{
+		return oauth;
+	}
 	~Settings();
 };
 

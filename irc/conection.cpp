@@ -1,14 +1,12 @@
 #include "conection.h"
 
-
-
 conection::conection()
 {
 
 }
 
 int conection::receiveAll(int s, char * recievebuf)
- {
+{
 	int n = 0;
 	int total = 0;
 	int left = 512;
@@ -102,7 +100,7 @@ int conection::receiveAll(int s, char * recievebuf)
 
 	return (n <= 0) ? -1 : 0;
 }
-	
+
 void conection::sendAll(int s, std::string buf, int *len)
 {
 	int left = *len;
@@ -127,91 +125,92 @@ void conection::sendAll(int s, std::string buf, int *len)
 }
 
 bool conection::findObject(char *ob, char recieve[])
-{		
-	if (strstr(recieve, ob) != NULL)	
-	{			
-		return true;	
+{
+	if (strstr(recieve, ob) != NULL)
+	{
+		return true;
 	}
-	
-	else	
-	{			
-		return false;		
+
+	else
+	{
+		return false;
 	}
 }
 
 
 int conection::initalize(SOCKET &connectSocket)
-{		std::cout << "CONNECTING TO: " << service << std::endl;
-
-std::cerr << "Hostname: " << hostName  << " port: " << port << std::endl;
-
-
-setState(state::CONNECTING);
-
-	
-while (st == state::CONNECTING)
 {
-	// Initialize Winsock	
-	status = WSAStartup(MAKEWORD(2, 2), &wsaData);
-	if (status != 0)
+	std::cout << "CONNECTING TO: " << service << std::endl;
+
+	std::cerr << "Hostname: " << hostName << " port: " << port << std::endl;
+
+
+	setState(state::CONNECTING);
+
+
+	while (st == state::CONNECTING)
 	{
-		std::cerr << "WSAStartup failed with error: " << status << std::endl;
-		setState(state::CONNECTIONERROR);
-	}
+		// Initialize Winsock	
+		status = WSAStartup(MAKEWORD(2, 2), &wsaData);
+		if (status != 0)
+		{
+			std::cerr << "WSAStartup failed with error: " << status << std::endl;
+			setState(state::CONNECTIONERROR);
+		}
 
-	//To clear the struct of junk data.
-	memset(&server, 0, sizeof(server));
+		//To clear the struct of junk data.
+		memset(&server, 0, sizeof(server));
 
-	//The basic initalizing setting for winsock.
-	server.ai_family = AF_UNSPEC;
-	server.ai_socktype = SOCK_STREAM;
-	server.ai_protocol = IPPROTO_TCP;
+		//The basic initalizing setting for winsock.
+		server.ai_family = AF_UNSPEC;
+		server.ai_socktype = SOCK_STREAM;
+		server.ai_protocol = IPPROTO_TCP;
 
-	status = getaddrinfo(hostName.c_str(), port, &server, &result);
+		status = getaddrinfo(hostName.c_str(), port, &server, &result);
 
-	for (ptr = result; ptr != NULL; ptr = ptr->ai_next)
-	{
-		// Create a SOCKET for connecting to server
-		connectSocket = socket(ptr->ai_family, ptr->ai_socktype, ptr->ai_protocol);
+		for (ptr = result; ptr != NULL; ptr = ptr->ai_next)
+		{
+			// Create a SOCKET for connecting to server
+			connectSocket = socket(ptr->ai_family, ptr->ai_socktype, ptr->ai_protocol);
+
+			if (connectSocket == INVALID_SOCKET)
+			{
+				std::cerr << "socket failed with error: " << WSAGetLastError() << std::endl;
+				WSACleanup();
+				setState(state::CONNECTIONERROR);
+			}
+
+			// Connect to ip address
+			status = connect(connectSocket, ptr->ai_addr, (int)ptr->ai_addrlen);
+
+			if (status == SOCKET_ERROR)
+			{
+				closesocket(connectSocket);
+				connectSocket = INVALID_SOCKET;
+				std::cerr << "Invalid address" << std::endl;
+				setState(state::CONNECTIONERROR);
+			}
+		}
+
+		freeaddrinfo(result);
 
 		if (connectSocket == INVALID_SOCKET)
 		{
-			std::cerr << "socket failed with error: " << WSAGetLastError() << std::endl;
+			std::cerr << "Unable to Connect" << "Error: " << WSAGetLastError() << std::endl;
+			system("PAUSE");
 			WSACleanup();
 			setState(state::CONNECTIONERROR);
 		}
 
-		// Connect to ip address
-		status = connect(connectSocket, ptr->ai_addr, (int)ptr->ai_addrlen);
-
-		if (status == SOCKET_ERROR)
+		if (st == state::CONNECTIONERROR)
 		{
-			closesocket(connectSocket);
-			connectSocket = INVALID_SOCKET;
-			std::cerr << "Invalid address" << std::endl;
-			setState(state::CONNECTIONERROR);
+			std::cerr << "Connection Failed" << std::endl;
+			system("PAUSE");
+			exit(-1);
 		}
+
+		setState(state::SENDING);
 	}
-
-	freeaddrinfo(result);
-
-	if (connectSocket == INVALID_SOCKET)
-	{
-		std::cerr << "Unable to Connect" << "Error: " << WSAGetLastError() << std::endl;
-		system("PAUSE");
-		WSACleanup();
-		setState(state::CONNECTIONERROR);
-	}
-
-	if (st == state::CONNECTIONERROR)
-	{
-		std::cerr << "Connection Failed" << std::endl;
-		system("PAUSE");
-		exit(-1);
-	}
-
-	setState(state::SENDING);
-}
 	return 0;
 }
 

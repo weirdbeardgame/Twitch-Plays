@@ -9,11 +9,11 @@ int main()
 	std::string oauth;
 	std::string userName;
 
-	set.initalize(oauth, userName);
+	set.initalize();
 	
 	while (true)
 	{
-		Menu.menu(oauth, userName);
+		Menu.menu();
 	}
 	
 	return  0;

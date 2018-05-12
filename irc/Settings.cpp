@@ -22,9 +22,9 @@ void Settings::initalize()
 
 void Settings::defaultSettings()
 {
-	setting = 
-	{						
-    {"Service", "Twitch" },		
+	setting =
+	{
+	{"Service", "Twitch" },
 	{"channelName", "The name of your twitch channel to join" },
 	{"Oauth", "Required to join your channel"}
 	};
@@ -34,19 +34,19 @@ void Settings::defaultSettings()
 
 void Settings::readSettings()
 {
-		service = setting["Service"].get<std::string>();
-		userName = setting["channelName"].get<std::string>();
-		oauth = setting["Oauth"].get<std::string>();
+	service = setting["Service"].get<std::string>();
+	userName = setting["channelName"].get<std::string>();
+	oauth = setting["Oauth"].get<std::string>();
 }
 
 void Settings::editSettings()
-{ 
+{
 	char options;
 
 	std::cout << "current setting's are: "
 		<< "Service: " << service << std::endl
 		<< "Channel Name: " << userName << std::endl
-		<< "Oauth Token: " << o << std::endl;
+		<< "Oauth Token: " << oauth << std::endl;
 
 	std::cout << "Options are: " << std::endl;
 	std::cout << "C: Edit Channel name" << std::endl
@@ -56,7 +56,7 @@ void Settings::editSettings()
 	std::cout << ">";
 	std::cin >> options;
 	options = toupper(options);
-		
+
 	switch (options)
 	{
 	case 'C':
@@ -76,7 +76,7 @@ void Settings::editSettings()
 	case 'S':
 		std::cout << "Not yet implemented." << std::endl;
 		break;
-	}	 
+	}
 }
 
 void Settings::writeSettings(jsonf stream)
@@ -93,7 +93,7 @@ void Settings::writeSettings(jsonf stream)
 	outputFile << std::setw(4) << stream << std::endl;
 }
 
-void Settings::setUserName(const std::string &u)
+void Settings::setUserName(std::string &u)
 {
 	std::cout << ">";
 	std::cin.ignore();
@@ -101,11 +101,11 @@ void Settings::setUserName(const std::string &u)
 	userName = u;
 	setting["channelName"] = userName;
 	setting["Service"] = "Twitch";
-	setting["Oauth"] = oauth; 
+	setting["Oauth"] = oauth;
 	writeSettings(setting);
 }
 
-void Settings::setOathToken(const std::string &o)
+void Settings::setOathToken(std::string &o)
 {
 	std::cout << ">";
 	std::cin.ignore();
@@ -115,16 +115,6 @@ void Settings::setOathToken(const std::string &o)
 	setting["Service"] = "Twitch";
 	setting["Oauth"] = oauth;
 	writeSettings(setting);
-}
-
-std::string Settings::getUserName() const
-{
-	return userName;
-}
-
-std::string Settings::getOauthToken() const
-{
-	return oauth;
 }
 
 Settings::~Settings()

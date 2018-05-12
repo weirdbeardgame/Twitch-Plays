@@ -2,7 +2,7 @@
 
 
 twitch::twitch()
-{		
+{
 	twitchBot.setHostName("irc.twitch.tv");
 	twitchBot.setPort("6667");
 }
@@ -22,7 +22,7 @@ bool twitch::findObject(char * ob, char recieve[])
 
 void twitch::connectTwitch()
 {
-	char recieve[512];		
+	char recieve[512];
 	twitchBot.initalize(s);
 
 	if (twitchBot.getState() == state::SENDING)
@@ -31,7 +31,7 @@ void twitch::connectTwitch()
 		* Below is the list of sent buffers for
 		* loging into whatever service you may.
 		******************************************/
-	  sendBuf = "PASS " + set.getOauth() + "\r\n";
+		sendBuf = "PASS " + set.getOauthToken() + "\r\n";
 
 		len = sendBuf.length();
 		twitchBot.sendAll(s, sendBuf, &len);
@@ -61,10 +61,10 @@ void twitch::connectTwitch()
 
 		std::cerr << "Nick name sent" << std::endl;
 
-		sendBuf = "JOIN #" + set.getUser() + "\r\n";
+		sendBuf = "JOIN #" + set.getUserName() + "\r\n";
 		len = sendBuf.length();
 		twitchBot.sendAll(s, sendBuf, &len);
-		
+
 		if (twitchBot.getStatus() == SOCKET_ERROR)
 		{
 			std::cerr << "send failed with error: " << WSAGetLastError() << std::endl;
@@ -73,7 +73,7 @@ void twitch::connectTwitch()
 			twitchBot.setState(state::CONNECTIONERROR);
 		}
 
-		std::cerr << "Channel joined #" << u << std::endl;
+		std::cerr << "Channel joined #" << set.getUserName() << std::endl;
 
 
 		sendBuf = "CAP REQ :twitch.tv/membership\r\n";

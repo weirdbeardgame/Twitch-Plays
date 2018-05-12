@@ -13,10 +13,9 @@ void Keys::pushToQueue(std::string s)
 	commands.push_back(s);
 	pullFromQueue();
 }
- 
-void Keys::pullFromQueue() 
+
+void Keys::pullFromQueue()
 {
-	
 	for (int i = 0; i < commands.size(); i++)
 	{
 		fout << commands[i] << std::endl;
@@ -47,7 +46,7 @@ void Keys::translateCommand(std::string Command)
 	}
 
 	else if (Command == "Left" || Command == "left")
-	{	
+	{
 		ip.ki.dwFlags = KEYEVENTF_SCANCODE;
 		ip.ki.wScan = 22475;
 		SendInput(1, &ip, sizeof(INPUT));
@@ -59,7 +58,7 @@ void Keys::translateCommand(std::string Command)
 	}
 
 	if (Command == "Right" || Command == "right")
-	{	
+	{
 		ip.ki.dwFlags = KEYEVENTF_SCANCODE;
 		ip.ki.wScan = 22477;
 		SendInput(1, &ip, sizeof(INPUT));
