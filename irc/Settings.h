@@ -16,6 +16,7 @@ private:
 	std::string oauth;
 	jsonf setting;
 	jsonf keys;
+
 public:
 	Settings();
 	void initalize();
@@ -25,6 +26,7 @@ public:
 	void writeSettings(jsonf stream);
 	void setUserName(std::string &u);
 	void setOathToken(std::string &o);
+	
 	std::string getUserName() const
 	{
 		return userName;
@@ -34,6 +36,7 @@ public:
 	{
 		return oauth;
 	}
+
 	~Settings();
 };
 

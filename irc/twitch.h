@@ -1,12 +1,11 @@
 #pragma once
 #include "conection.h"
-#include "Settings.h"
+#include "Common.h"
 #include "Keys.h"
 #include <winsock.h>
 class twitch
 {
 private:
-	Settings set;
 	conection twitchBot;
 	std::string botName = "Control_Bot";
 	std::string sendBuf;

@@ -60,6 +60,7 @@ void twitch::connectTwitch()
 		}
 
 		std::cerr << "Nick name sent" << std::endl;
+		std::cout << "Channel joined #" << set.getUserName() << std::endl;
 
 		sendBuf = "JOIN #" + set.getUserName() + "\r\n";
 		len = sendBuf.length();
@@ -72,9 +73,6 @@ void twitch::connectTwitch()
 			WSACleanup();
 			twitchBot.setState(state::CONNECTIONERROR);
 		}
-
-		std::cerr << "Channel joined #" << set.getUserName() << std::endl;
-
 
 		sendBuf = "CAP REQ :twitch.tv/membership\r\n";
 		len = sendBuf.length();

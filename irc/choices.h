@@ -2,13 +2,12 @@
 #include <iostream>
 #include "twitch.h"
 #include "youtube.h"
-#include "Settings.h"
+#include "Common.h"
 class choices
 {
 private:
 	char options = NULL;
 	std::string service = "Twitch";
-	Settings set;
 	twitch tw;
 
 public:

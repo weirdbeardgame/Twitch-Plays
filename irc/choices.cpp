@@ -1,10 +1,10 @@
 #include "choices.h"
 
-
+Settings set; //getting rid of the unresolved issues
 
 choices::choices()
 {
-
+	set.initalize();
 }
 
 void choices::menu()

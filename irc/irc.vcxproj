@@ -132,9 +132,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="choices.h" />
+    <ClInclude Include="Common.h" />
     <ClInclude Include="conection.h" />
     <ClInclude Include="json.hpp" />
-    <ClInclude Include="keyboard.h" />
     <ClInclude Include="Keys.h" />
     <ClInclude Include="Settings.h" />
     <ClInclude Include="Text_Commands.h" />
